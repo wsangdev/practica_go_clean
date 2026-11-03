@@ -17,5 +17,5 @@ func main() {
 	myApp := app.NewApp(db)
 
 	// levanta server
-	myApp.Router.Run(":8080")
+	myApp.Router.Run(":8082")
 }

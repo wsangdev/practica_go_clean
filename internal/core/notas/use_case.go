@@ -2,6 +2,9 @@ package notas
 
 import (
 	"errors"
+	"time"
+
+	"github.com/google/uuid"
 )
 
 type NotasUseCase interface {
@@ -26,6 +29,9 @@ func (uc *NotasCase) CreateNota(note *Nota) error {
 	if note.Titulo == "" {
 		return errors.New("el titulo de la nota es obligatorio")
 	}
+
+	note.ID = uuid.New().String()
+	note.CreatedAt = time.Now()
 
 	return uc.repo.Create(note)
 }
