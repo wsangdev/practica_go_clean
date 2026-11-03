@@ -1,16 +1,21 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"log"
+	"one/internal/app"
+	"one/internal/shared/database"
 )
 
 func main() {
 
-	r := gin.Default()
+	// Inica base de datos
+	db, err := database.Conect()
+	if err != nil {
+		log.Fatal("Error conectando a la BD: ", err)
+	}
+	// Crea la app
+	myApp := app.NewApp(db)
 
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{"mensaje": "esto es un mensaje para gin"})
-	})
-
-	r.Run()
+	// levanta server
+	myApp.Router.Run(":8080")
 }
